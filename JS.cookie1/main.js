@@ -98,6 +98,25 @@ const userGetCookie = function(cname){
         //indexOf메서드의 리턴값-->배열일경우-->검색된항목의index값
         //문자열일 경우-->검색된 문자열의 첫 글자의 index값
         //검색 결과가 없을 경우--> -1리턴
+
+        //if조건문-->['userid=qzom1425', 'username=poky', 'user=eunjoo']
+        if(allCookie[i].indexOf(name)==0) {
+            cval = allCookie[i].split('=');
+            console.log(cval); // ['userid', 'qzom1425']출력
+            console.log(cval[1]); // ['qzom1425']출력
+            console.log(cval.length); //2출력-->배열의 0과1 -->0:쿠키명,1:쿠키값
+        }
     }
+    return (cval.length>0)?cval[1] : 'nothing';
 }
 console.log('userGetCookie함수로 리턴된 값은='+userGetCookie('user'));
+//userGetCookie함수로 리턴된 값은=eunjoo 출력
+
+
+//[8-1] userGetCookie함수 만들기 연습-->oneGetCookie
+console.clear();
+
+const oneGetCookie = function(cname) {
+    let name = cname+'=';
+    
+}
