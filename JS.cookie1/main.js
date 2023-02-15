@@ -98,25 +98,56 @@ const userGetCookie = function(cname){
         //indexOf메서드의 리턴값-->배열일경우-->검색된항목의index값
         //문자열일 경우-->검색된 문자열의 첫 글자의 index값
         //검색 결과가 없을 경우--> -1리턴
-
-        //if조건문-->['userid=qzom1425', 'username=poky', 'user=eunjoo']
-        if(allCookie[i].indexOf(name)==0) {
-            cval = allCookie[i].split('=');
-            console.log(cval); // ['userid', 'qzom1425']출력
-            console.log(cval[1]); // ['qzom1425']출력
-            console.log(cval.length); //2출력-->배열의 0과1 -->0:쿠키명,1:쿠키값
-        }
     }
-    return (cval.length>0)?cval[1] : 'nothing';
 }
 console.log('userGetCookie함수로 리턴된 값은='+userGetCookie('user'));
-//userGetCookie함수로 리턴된 값은=eunjoo 출력
 
 
-//[8-1] userGetCookie함수 만들기 연습-->oneGetCookie
-console.clear();
+//[8-1] userGetCookie 함수만들기 연습 --> oneGetCookie
 
 const oneGetCookie = function(cname) {
-    let name = cname+'=';
     
+    let name = cname+'=';
+    let allCookie = decodeURIComponent(document.cookie).split(';');
+
+    let cval = [];
+    for(let i = 0; i < allCookie.length; i++) {
+        if(allCookie[i].trim().indexOf(name)==0) { //userid=qzom1425
+            cval = allCookie[i].trim().split('=');
+        }
+    }
+    return (cval.length > 0)? cval[1]:'no result';
 }
+console.clear();
+console.log('oneGetCookie함수로 리턴되는 값은='+ oneGetCookie('guest'));
+
+//-------------------------------------------------------------------------------------------
+//[9] forEach메서드를 이용한 userGetCookie2 함수 만들기
+console.clear();
+console.log(document.cookie); //userid=qzom1425; username=poky; user=eunjoo
+
+const userGetCookie2 = (cname) => {
+    //1.객체변수선언
+    let cookie = {}; //{userid:"qzom1425",username:"poky",user:"eunjoo"}<--이렇게 저장시키려고한다
+
+    //2.반복처리-forEach()
+    document.cookie.split(';').forEach(function(element){
+
+        //할 일 처리
+        element = element.trim(); // ";"위에서 공백처리 안해서 여기서 trim()으로 처리
+        console.log(element);
+
+        let [k,v] = element.trim().split('=');
+        console.log(k);
+        // console.clear();
+
+        cookie[k] = v;
+        console.log(cookie);
+    });
+
+    // return cookie[cname]; //qzom1425 출력
+    return(cookie[cname]!=undefined)?cookie[cname]:'no result';
+    //cname이 undefined가 아니라면 cname출력 이외에는 No result출력
+}
+
+console.log('userGetCookie2함수로 리턴된 값은='+userGetCookie2('userid'));
