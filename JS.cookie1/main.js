@@ -151,3 +151,38 @@ const userGetCookie2 = (cname) => {
 }
 
 console.log('userGetCookie2함수로 리턴된 값은='+userGetCookie2('userid'));
+
+
+
+
+
+console.clear();
+
+
+
+//[10]ES6버전으로 userGetCookie3 함수 만들기
+
+
+console.log(document.cookie); //userid=qzom1425; username=poky; user=eunjoo
+
+const userGetCookie3 =function(cname){
+    //1.cname수정
+    cname = cname + '='; //userid=     이렇게 만들어짐
+    //2.문자열(쿠키명)찾기
+    const str = document.cookie;
+    const isCookieIdx = str.indexOf(cname);
+    // boolean isCookie = str.contains(cname);//JAVA에서는 contains()사용-->js는 indexOf()메서드 사용.
+    // console.log(isCookieIdx);
+    //3.쿠키 가져와서 분리-->처리
+    let result = "no result";
+    if(isCookieIdx >= 0) {
+        //할 일 처리
+        result = document.cookie.split('; ')    //userid=qzom1425; username=poky; user=eunjoo
+        .find(item =>item.startsWith(cname)).split('=')[1]; //startsWith() 특정 문자열로 시작하는지 체크->true나false 반환
+                                                        //구형 브라우저에서는 지원x            
+        
+    }
+    return result;
+}
+
+console.log('userGetCookie3함수로 리턴된 값은='+userGetCookie3('userid'));
