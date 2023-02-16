@@ -186,3 +186,50 @@ const userGetCookie3 =function(cname){
 }
 
 console.log('userGetCookie3함수로 리턴된 값은='+userGetCookie3('userid'));
+
+function showCval(cname) {
+    const rst = document.getElementById('cval');
+    // rst.textContent = userGetCookie3(cname);
+    rst.value = userGetCookie3(cname);
+}
+
+function clearCval() {
+    const remove = document.getElementById('cval');
+    // remove.textContent = "";
+    remove.value = "";
+}
+//JS .value vs .textContent 차이점
+// input과 같은 form요소에는 -->.value 메서드 사용.
+//div, span등의 요소에는     -->.textContent메서드 사용.
+
+
+//[10-1] startsWith()사용법
+//문자열 검색시 특정 문자열로 시작하는지 체크--> true 또는 false로 반환.
+//즉, 검색할 문자열로 시작하면 true, 아니면 false.
+//str.startsWith(검색문자열 [,position])   [] <--생략이 가능한 옵션.
+//position 옵션은 검색문자열을 탐색할 위치 지정. 기본값0
+//대소문자 구분.
+
+//문자열인 경우
+console.clear();
+const str = "가나 다라 마바 사아 자차 카타 파하";
+console.log(str.startsWith('마바',6));
+//배열인 경우
+console.clear();
+const ar = "dog=5; cat=7; hippo=9; lion=4; tiger=2";
+console.log(typeof ar);
+const ar2 = ar.split('; ');
+console.log(ar2); //['dog=5', 'cat=7', 'hippo=9', 'lion=4', 'tiger=2'] 배열로 출력
+
+const ar3 = ar2.find(item => item.startsWith('hippo='));
+console.log(ar3); //hippo=9출력
+
+const ar4 = ar3.split('=');
+console.log(ar4); //['hippo', '9']출력
+console.log(ar4[1]); //9
+
+const ar5 = ar2.findIndex(item => item.startsWith('hipp'));//조건에 만족하는 첫 번째 요소index반환 없으면-1
+console.log(ar5);
+
+//배열 요소의 위치를 찾고자 하면-->.indexOf()
+//배열 요소가 해당 배열에 존재하는지 체크하려면-->.indexOf() 또는 .includes()
